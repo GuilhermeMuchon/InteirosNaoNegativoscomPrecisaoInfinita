@@ -1,2 +1,2 @@
-# InteirosN-oNegativoscomPrecis-oInfinita
+# InteirosNaoNegativoscomPrecisaoInfinita
 Trabalho de EDA - UDESC
