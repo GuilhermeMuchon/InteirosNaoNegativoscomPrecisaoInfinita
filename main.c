@@ -6,9 +6,9 @@
 
 void main(int argc, char *argv[]) {
 	int x;
-	char s[1000];
+	char s[10];
 	scanf("%s",s);
-	iniclializa_INT(&x,s);
-	mostra_INT(x);
-	desaloca_INT(&x);
+	inicializa_INT(&x,&s);
+//	mostra_INT(x);
+//	desaloca_INT(&x);
 }

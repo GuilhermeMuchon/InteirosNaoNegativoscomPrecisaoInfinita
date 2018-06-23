@@ -25,7 +25,7 @@ void inverteLista(LDE l){
       }
     }
 }
-int maior(LDE l, int (*compara)(void*, void*)){ //VAI CAIR NA PROVA
+int maior(LDE l, int (*compara)(void*, void*)){
     if(lista_vazia(l)){
         return ERRO_LISTA_VAZIA;
     }
