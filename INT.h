@@ -7,4 +7,4 @@ typedef struct{
 
 int inicializa_INT(INT *p, char *s);
 char converte(char x);
-
+void desaloca_INT(INT *p);

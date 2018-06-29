@@ -7,6 +7,7 @@ void inicializa_lista(LDE *p, int t){
   p->cabeca  = NULL; //NULL -> ponteiro sem valor definido - n inicializado
   p->tamInfo = t;
 }
+
 void inverteLista(LDE l){
     if(lista_vazia(l)){
       printf("LDE vazia!\n");
@@ -25,6 +26,7 @@ void inverteLista(LDE l){
       }
     }
 }
+
 int maior(LDE l, int (*compara)(void*, void*)){
     if(lista_vazia(l)){
         return ERRO_LISTA_VAZIA;
@@ -42,7 +44,8 @@ int maior(LDE l, int (*compara)(void*, void*)){
     }
     return i_maior;
 }
-void mostrarInversamente(LDE l, void (*mostra)(void*)){ //questao 4
+
+void mostrarInversamente(LDE l, void (*mostra)(void*)){
     // int cont = 0;
     if(lista_vazia(l)){
       printf("LDE vazia!\n");
@@ -61,7 +64,7 @@ void mostrarInversamente(LDE l, void (*mostra)(void*)){ //questao 4
     }
 }
 
-// void mostra_invertido(LDE l, void(*mostra)(void*)){ //questao 5
+// void mostra_invertido(LDE l, void(*mostra)(void*)){
 //     if(lista_vazia(l)){
 //         printf("Lista vazia\n");
 //     }else{
@@ -91,6 +94,7 @@ void conta_elementos(LDE l){
       printf("O total de elementos e: %d\n", cont);
     }
 }
+
 void mostra_lista(LDE l, void (*mostra)(void*)){
   if(lista_vazia(l)){
     printf("LDE vazia!\n");
@@ -103,9 +107,11 @@ void mostra_lista(LDE l, void (*mostra)(void*)){
     }
   }
 }
+
 int lista_vazia(LDE l){ //funcao privada, n precisa estar no '.'h
   return l.cabeca == NULL;
 }
+
 void desaloca_lista(LDE *l){
     ElementoDuplo *p = l->cabeca;
     while(p != NULL){
@@ -116,6 +122,7 @@ void desaloca_lista(LDE *l){
     }
     l->cabeca=NULL;
 }
+
 int insereNoInicio(LDE *l, void *info){
   ElementoDuplo *novo = aloca_ele(info, l->tamInfo);
   if(novo == NULL){
@@ -129,6 +136,7 @@ int insereNoInicio(LDE *l, void *info){
   }
   return 1; // sucesso total
 }
+
 ElementoDuplo *aloca_ele(void *x, int t){
   ElementoDuplo *p=(ElementoDuplo*)malloc(sizeof(ElementoDuplo));
   if(p==NULL){
@@ -142,6 +150,7 @@ ElementoDuplo *aloca_ele(void *x, int t){
   memcpy(p->info, x, t);
   return p;
 }
+
 int removeDoInicio(LDE *l, void *info){
   if(lista_vazia(*l)){
     return ERRO_LISTA_VAZIA;
@@ -156,6 +165,7 @@ int removeDoInicio(LDE *l, void *info){
   }
   return 1;
 }
+
 int insereNoFim(LDE *l, void *info){
     if(lista_vazia(*l)){
         return insereNoInicio(l,info);
@@ -169,10 +179,11 @@ int insereNoFim(LDE *l, void *info){
         return 0; //erro na alocação
     }
     novo->suc = NULL;
-    p->suc=novo;
-    novo->ant=p;
+    p->suc = novo;
+    novo->ant = p;
     return 1; //sucesso
 }
+
 int insereNaPos(LDE *l, void *info, int pos){
   if(pos<0){
     return ERRO_POSICAO_INVALIDA; //-2 -> erro
@@ -297,6 +308,7 @@ void desaloca_lista_v2(LDE *l){
     }
     free(aux);
 }
+
 int quantidade(LDE l){
     if(lista_vazia(l)){
         return 0;
@@ -309,6 +321,7 @@ int quantidade(LDE l){
     }
     return cont;
 }
+
 int busca(LDE l, void *chave, int(*compara)(void *, void *)){
     if(lista_vazia(l)){
         return -1;
@@ -324,6 +337,7 @@ int busca(LDE l, void *chave, int(*compara)(void *, void *)){
     }
     return -1;
 }
+
 int insereEmOrdem(LDE *l, void *info, int (*compara)(void*, void*)){
     ElementoDuplo *p = l->cabeca;
     int cont = 0;
@@ -333,6 +347,7 @@ int insereEmOrdem(LDE *l, void *info, int (*compara)(void*, void*)){
     }
     return insereNaPos(l, info, cont);
 }
+
 /*
 void *info = malloc(l.tamInfo);
 int i;

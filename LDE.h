@@ -31,3 +31,4 @@ int insereNaPos(LDE *l, void *info, int pos);
 int insereEmOrdem(LDE *l, void *info, int (*compara)(void*, void*));
 void mostrarInversamente(LDE l, void (*mostra)(void*));
 void conta_elementos(LDE l);
+int lista_vazia(LDE l);
