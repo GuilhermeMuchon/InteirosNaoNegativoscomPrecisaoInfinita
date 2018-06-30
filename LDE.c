@@ -160,9 +160,9 @@ int removeDoInicio(LDE *l, void *info){
   memcpy(info, aux->info, l->tamInfo);
   free(aux->info);
   free(aux);
-  l->cabeca->ant = NULL;
-  //if(l->cabeca != NULL){
-  //}
+  if(l->cabeca!=NULL){
+	l->cabeca->ant = NULL;
+  }
   return 1;
 }
 
