@@ -155,14 +155,14 @@ int removeDoInicio(LDE *l, void *info){
   if(lista_vazia(*l)){
     return ERRO_LISTA_VAZIA;
   }
-  ElementoDuplo *p=l->cabeca;
-  l->cabeca=p->suc;
-  memcpy(info,p->info,l->tamInfo);
-  free(p->info);
-  l->cabeca->ant=NULL;
-  free(p);
-  if(l->cabeca!=NULL){
-  }
+  ElementoDuplo *aux=l->cabeca;
+  l->cabeca=aux->suc;
+  memcpy(info, aux->info, l->tamInfo);
+  free(aux->info);
+  free(aux);
+  l->cabeca->ant = NULL;
+  //if(l->cabeca != NULL){
+  //}
   return 1;
 }
 
@@ -311,13 +311,13 @@ void desaloca_lista_v2(LDE *l){
 
 int quantidade(LDE l){
     if(lista_vazia(l)){
-        return 0;
+    	return 0;
     }
     ElementoDuplo *p = l.cabeca;
     int cont = 0;
     while(p != NULL){
         cont ++;
-        p = p->suc;
+    	p = p->suc;
     }
     return cont;
 }
