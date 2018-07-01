@@ -9,3 +9,5 @@ int inicializa_INT(INT *p, char *s);
 char converte(char x);
 void mostra_INT(INT *p, void (*mostra)(void*));
 void desaloca_INT(INT *p);
+void atribui_INT(INT *inteiroLongo, INT aux);
+INT soma_INT(INT *p, INT *q);

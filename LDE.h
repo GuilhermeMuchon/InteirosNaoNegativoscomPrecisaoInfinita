@@ -2,7 +2,7 @@
 #define ERRO_POSICAO_INVALIDA -2
 
 typedef struct ele{
-  void * info;
+  void *info;
   struct ele *suc, *ant;
 }ElementoDuplo;
 
