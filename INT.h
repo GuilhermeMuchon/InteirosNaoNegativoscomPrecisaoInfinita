@@ -10,5 +10,6 @@ char converte(char x);
 void mostra_INT(INT *p, void (*mostra)(void*));
 void desaloca_INT(INT *p);
 void atribui_INT(INT *inteiroLongo, INT aux);
-INT soma_INT(INT *p, INT *q);
-INT multiplica_INT(INT *p, int a);
+int soma_INT(INT *p, INT *q, INT *resultado);
+int diminui_INT(INT *p, INT *q, INT *resultado);
+int multiplica_INT(INT *p, INT *q, INT *resultado);

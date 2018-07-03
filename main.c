@@ -8,27 +8,45 @@ void mostra_int(void *p){
   printf("%d",*(char*)p); // (int*) -> convertendo a direita da expressão para int, nesse caso, a variável p
 }
 
+compara(void *a, void *b){
+    char *x=(char*)a, *y=(char*)b;
+    if(*x > *y){
+        return 1; // A>B
+    }
+    if(*x < *y){
+        return -1; // A<B
+    }
+    return 0; // A==B
+}
+
 void main(int argc, char *argv[]) {
-	INT x, novo, resultadoSoma, resultadoMulti;
-	char s[100], novo_S[100];
+	char s[100];
+	int resp, i;
 	
-	printf("Digite o valor a ser inicializado: ");
-	scanf("%s", s);
+	printf("\nDigite quantos Inteiros longos voce deseja inicializar: ");
+	scanf("%d", &resp);
 	
-	inicializa_INT(&x, &s);
-	mostra_INT(&x, mostra_int);
+	INT x[resp], resultado;
 	
-	printf("\nDigite o valor a ser atribuido: ");
-	scanf("%s", novo_S);
-	inicializa_INT(&novo, &novo_S);
+	for(i = 0; i < resp; i++){
+		printf("\nDigite o valor do %d inteiro longo: ", i+1);
+		scanf("%s", s);
+		inicializa_INT(&x[i], s);
+	}
 	
-	printf("\nSoma:\n");
-	resultadoSoma = soma_INT(&x, &novo);
-	mostra_INT(&resultadoSoma, mostra_int);
-	
-	printf("\nMulti:\n");
-	resultadoMulti = multiplica_INT(&x, 6);
-	mostra_INT(&resultadoMulti, mostra_int);
+	for(i = 1; i < resp; i++){
+		printf("\n\nSoma do %d com o %d: ", i, i+1);
+		soma_INT(&x[i], &x[i+1], &resultado);
+		mostra_INT(&resultado, mostra_int);
+		
+		printf("\n\nSubtracao do %d com o %d: ", i, i+1);
+		diminui_INT(&x[i], &x[i+1], &resultado);
+		mostra_INT(&resultado, mostra_int);
+		
+		printf("\n\nMultiplicacao do %d com o %d: ", i, i+1);
+		multiplica_INT(&x[i], &x[i+1], &resultado);
+		mostra_INT(&resultado, mostra_int);
+	}
 	
 	desaloca_INT(&x);
 }

@@ -3,6 +3,14 @@
 #include <stdio.h> 
 #include <string.h> //memcopy
 
+char retornaValor(ElementoDuplo *e){
+	return *((char*)e->info);
+}
+
+void setValor(ElementoDuplo *e, char valor){
+	memcpy(e->info, &valor, sizeof(char));
+}
+
 void removeZeros(INT *p){
 	char info = 0;
 	while(leNaPos(&(p->l),&info, 0) == 1 && info == 0){
@@ -52,7 +60,7 @@ void mostra_INT(INT *inteiroLongo, void(*mostra)(void *)) {
     if (lista_vazia(inteiroLongo -> l)) {
         printf("INT vazio!\n");
     } else {
-        printf("Dados da lista:\n");
+//        printf("\nDados da lista:\n");
         ElementoDuplo *aux = inteiroLongo -> l.cabeca;
         while (aux != NULL) {
             mostra(aux -> info);
@@ -62,6 +70,16 @@ void mostra_INT(INT *inteiroLongo, void(*mostra)(void *)) {
 }
 
 void atribui_INT(INT *inteiroLongo, INT aux) {
+	desaloca_lista(&(inteiroLongo->l));
+	inicializa_lista(&(inteiroLongo->l), sizeof(char));
+	
+	while(aux.l.cabeca != NULL){
+		insereNoFim(&(inteiroLongo -> l), (aux.l.cabeca->info));
+		aux.l.cabeca = aux.l.cabeca->suc;
+	}
+}
+
+/*void atribui_INT(INT *inteiroLongo, INT aux) {
 	int variavel_qualquer;
 	while(!lista_vazia(inteiroLongo -> l)){
 		removeDoFim(&(inteiroLongo -> l), &variavel_qualquer);
@@ -70,11 +88,10 @@ void atribui_INT(INT *inteiroLongo, INT aux) {
 		insereNoFim(&(inteiroLongo -> l), aux.l.cabeca->info);
 		aux.l.cabeca = aux.l.cabeca->suc;
 	}
-}
+}*/
 
-INT soma_INT(INT *p, INT *q){
-	LDE resultado;
-	inicializa_lista(&resultado, sizeof(char));
+int soma_INT(INT *p, INT *q, INT *resultado){
+	inicializa_lista(&(resultado->l), sizeof(char));
 	
 	ElementoDuplo *aux1 = p->l.cabeca;
 	ElementoDuplo *aux2 = q->l.cabeca;
@@ -87,42 +104,171 @@ INT soma_INT(INT *p, INT *q){
 		aux2 = aux2->suc;
 	}
 	
-	char restaUm = 0;
+	char soma1, soma2, restaUm = 0;
 	
 	while(aux1 != NULL || aux2 != NULL){
-		char soma1=0, soma2=0;
+		
+		soma1=0;
+		soma2=0;
+		
 		if(aux1 != NULL){
-			soma1 = *((char*)aux1->info);
+			soma1 = retornaValor(aux1);
 			aux1 = aux1->ant;
 		}
 		if(aux2 != NULL){
-			soma2 = *((char*)aux2->info);
+			soma2 = retornaValor(aux2);
 			aux2 = aux2->ant;
 		}
 		
-		soma1 += soma2 + restaUm;
+		soma1+=soma2+restaUm;
 		restaUm = soma1/10;
-		soma1 = soma1%10;
-		insereNoInicio(&resultado, &soma1);
+		soma1 = soma1% 10;
+		insereNoInicio(&(resultado->l),&soma1);
 	}
 	
-	if(restaUm > 0){
-		insereNoInicio(&resultado, &restaUm);
+	if(restaUm>0){
+		insereNoInicio(&(resultado->l),&restaUm);
 	}
 	
-	INT retorno;
-	retorno.l = resultado;
+	if(aux1 == NULL){
+		aux1 = aux1->suc;
+	}
 	
-	return retorno;
+	if(aux2 == NULL){
+		aux2 = aux2->suc;
+	}
+	
+	return 1;
 }
 
-INT multiplica_INT(INT *p, int a){
-	INT multiplicacao = *p;
-	int i;
-	
-	for(i = 0; i < a;  i++){
-		atribui_INT(&multiplicacao, soma_INT(p, &multiplicacao));
-	} 
-	
-	return multiplicacao;
+char emprestaUm(ElementoDuplo *e){
+	if(e != NULL){
+		char valor= retornaValor(e);
+		if(valor == 0){
+			valor += emprestaUm(e->ant);
+		}
+		valor--;
+		setValor(e, valor);
+		return 10;
+	}
 }
+
+int diminui_INT(INT *p, INT *q, INT *resultado){
+	
+	inicializa_lista(&(resultado->l),sizeof(char));
+	
+	ElementoDuplo *aux1 = p->l.cabeca;
+	ElementoDuplo *aux2 = q->l.cabeca;
+	
+	int count1 =0, count2 = 0;
+	char valor1 = retornaValor(aux1);
+	char valor2 = retornaValor(aux2);
+	
+	while(aux1->suc != NULL){
+		aux1 = aux1->suc;
+		count1++;
+	}
+	
+	while(aux2->suc != NULL){
+		aux2 = aux2->suc;
+		count2++;
+	}
+	
+	if(count2 > count1 || (count2==count1 && valor2>valor1)){
+		// TODO: erro número 2 maior que número 1;
+		return -1;
+	}
+	
+	while(aux1 != NULL && aux2 != NULL){
+		valor1 = retornaValor(aux1);
+		aux1 = aux1->ant;
+		
+		valor2 = retornaValor(aux2);
+		aux2 = aux2->ant;
+		
+		if(valor2>valor1){
+			valor1 += emprestaUm(aux1);
+		}
+		
+		valor1 -= valor2;
+		
+		insereNoInicio(&(resultado->l),&valor1);
+	}
+	
+	while(aux1 != NULL){
+		
+		valor1 = retornaValor(aux1);
+		aux1 = aux1->ant;
+		
+		insereNoInicio(&(resultado->l),&valor1);
+	}
+	
+	removeZeros(resultado);
+	
+	return 1;
+}
+
+
+int multiplica_INT(INT *p, INT *q, INT *resultado){
+	inicializa_lista(&(resultado->l), sizeof(char));
+	
+	ElementoDuplo *aux1 = p->l.cabeca;
+	ElementoDuplo *aux2 = q->l.cabeca;
+	
+	while(aux1->suc != NULL){
+		aux1 = aux1->suc;
+	}
+	
+	while(aux2->suc != NULL){
+		aux2 = aux2->suc;
+	}
+	
+	char valor1, valor2, restaUm = 0, multiplicador = 0;
+	char x = 0;
+	
+	while(aux2 != NULL){
+		ElementoDuplo *aux3 = aux1;
+		INT multiplicacaoAtual;
+		inicializa_lista(&(multiplicacaoAtual.l), sizeof(char));
+		restaUm = 0;
+		
+		int i;
+		for(i = 0;i<multiplicador;i++){
+			insereNoInicio(&(multiplicacaoAtual.l), &x);
+		}
+		
+		while(aux3 != NULL){
+			valor1 = retornaValor(aux3);
+			valor2 = retornaValor(aux2);
+			
+			valor1*=valor2;
+			valor1+=restaUm;
+			
+			restaUm = valor1/10;
+			valor1 = valor1%10;
+			
+			insereNoInicio(&(multiplicacaoAtual.l), &valor1);
+			
+			aux3 = aux3->ant;
+		}
+		
+		multiplicador++;
+		
+		if(restaUm>0){
+			insereNoInicio(&(multiplicacaoAtual.l), &restaUm);
+		}
+		
+		INT soma;
+		soma_INT(resultado, &multiplicacaoAtual ,&soma);
+		
+		atribui_INT(resultado, soma);
+		
+		aux2 = aux2->ant;
+	}
+	
+	return 1;
+}
+
+/*int compara_INT(INT *p, INT *q){
+	while()
+}*/
