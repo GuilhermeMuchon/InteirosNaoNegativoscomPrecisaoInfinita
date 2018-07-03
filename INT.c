@@ -209,7 +209,65 @@ int diminui_INT(INT *p, INT *q, INT *resultado){
 
 	return 1;
 }
+int divide_INT(INT *p, INT *q, INT *resultado){
+	inicializa_lista(&(resultado->l), sizeof(char));
 
+	ElementoDuplo *aux1 = p->l.cabeca;
+	ElementoDuplo *aux2 = q->l.cabeca;
+
+	while(aux1->suc != NULL){
+		aux1 = aux1->suc;
+	}
+
+	while(aux2->suc != NULL){
+		aux2 = aux2->suc;
+	}
+
+	char valor1, valor2, restaUm = 0, divisor = 0;
+	char x = 0;
+
+	while(aux2 != NULL){
+		ElementoDuplo *aux3 = aux1;
+		INT divisaoAtual;
+		inicializa_lista(&(divisaoAtual.l), sizeof(char));
+		restaUm = 0;
+
+		int i;
+		for(i = 0;i<divisor;i++){
+			insereNoInicio(&(divisaoAtual.l), &x);
+		}
+
+		while(aux3 != NULL){
+			valor1 = retornaValor(aux3);
+			valor2 = retornaValor(aux2);
+
+			valor1/=valor2;
+			valor1-=restaUm;
+
+			restaUm = valor1/10;
+			valor1 = valor1%10;
+
+			insereNoInicio(&(divisaoAtual.l), &valor1);
+
+			aux3 = aux3->ant;
+		}
+
+		divisor++;
+
+		if(restaUm>0){
+			insereNoInicio(&(divisaoAtual.l), &restaUm);
+		}
+
+		INT soma;
+		soma_INT(resultado, &divisaoAtual ,&soma);
+
+		atribui_INT(resultado, soma);
+
+		aux2 = aux2->ant;
+	}
+
+	return 1;
+}
 
 int multiplica_INT(INT *p, INT *q, INT *resultado){
 	inicializa_lista(&(resultado->l), sizeof(char));
@@ -271,30 +329,62 @@ int multiplica_INT(INT *p, INT *q, INT *resultado){
 	return 1;
 }
 
-// int compara_INT(INT *p, INT *q, void(*compara)(void *)){
-// 	ElementoDuplo *aux1 = p->l.cabeca;
-// 	ElementoDuplo *aux2 = q->l.cabeca;
-//
-// 	while(aux1->suc != NULL){
-// 		aux1 = aux1->suc;
-// 		count1++;
-// 	}
-//
-// 	while(aux2->suc != NULL){
-// 		aux2 = aux2->suc;
-// 		count2++;
-// 	}
-//
-// 	if(cont1 > cont2){
-// 		return 1;
-// 	}else
-// 	if (cont1 < cont 2){
-// 		return -1;
-// 	} else{
-// 		while(compara(aux1->info, aux2->info) == 0 || aux1 != NULL || aux2 != NULL){
-// 			compara(aux1->info, aux2->info);
-// 			aux1 = aux1->ant;
-// 			aux2 = aux2->ant;
-// 		}
-// 	}
-// }
+int compara_INT(INT *p, INT *q, void(*compara)(void *)){
+	ElementoDuplo *aux1 = p->l.cabeca;
+	ElementoDuplo *aux2 = q->l.cabeca;
+    int count1, count2, cont1, cont2;
+	while(aux1->suc != NULL){
+		aux1 = aux1->suc;
+		count1++;
+	}
+
+	while(aux2->suc != NULL){
+		aux2 = aux2->suc;
+		count2++;
+	}
+
+	if(cont1 > cont2){
+		return 1;
+	}else
+	if (cont1 < cont2){
+		return -1;
+	}
+    // else{
+	// 	while((compara(aux1->info, aux2->info) == 0) || (aux1 != NULL || aux2 != NULL)){
+	// 		compara(aux1->info, aux2->info);
+	// 		aux1 = aux1->ant;
+	// 		aux2 = aux2->ant;
+	// 	}
+	// }
+    return 1;
+}
+
+int comparacao_INT(INT *p, INT *q){
+	ElementoDuplo *aux1 = p->l.cabeca;
+	ElementoDuplo *aux2 = q->l.cabeca;
+    int count1, count2, cont1, cont2;
+	while(aux1->suc != NULL){
+		aux1 = aux1->suc;
+		count1++;
+	}
+
+	while(aux2->suc != NULL){
+		aux2 = aux2->suc;
+		count2++;
+	}
+
+	if(cont1 > cont2){
+		return 1;
+	}else
+	if (cont1 < cont2){
+		return -1;
+	}
+    // else{
+	// 	while((compara(aux1->info, aux2->info) == 0) || (aux1 != NULL || aux2 != NULL)){
+	// 		compara(aux1->info, aux2->info);
+	// 		aux1 = aux1->ant;
+	// 		aux2 = aux2->ant;
+	// 	}
+	// }
+    return 1;
+}

@@ -8,16 +8,16 @@ void mostra_int(void *p){
   printf("%d",*(char*)p); // (int*) -> convertendo a direita da express�o para int, nesse caso, a vari�vel p
 }
 
-// int compara(void *a, void *b){
-//     char *x=(char*)a, *y=(char*)b;
-//     if(*x > *y){
-//         return 1; // A>B
-//     }
-//     if(*x < *y){
-//         return -1; // A<B
-//     }
-//     return 0; // A==B
-// }
+int compara(void *a, void *b){
+    char *x=(char*)a, *y=(char*)b;
+    if(*x > *y){
+        return 1; // A>B
+    }
+    if(*x < *y){
+        return -1; // A<B
+    }
+    return 0; // A==B
+}
 
 int main(int argc, char *argv[]) {
 	char s[100];
@@ -46,6 +46,16 @@ int main(int argc, char *argv[]) {
 		printf("\n\nMultiplicacao do %d com o %d: ", i+1, i+2);
 		multiplica_INT(&x[i], &x[i+1], &resultado);
 		mostra_INT(&resultado, mostra_int);
+
+		// printf("\n\nDivisao do %d com o %d: ", i+1, i+2);
+		// divide_INT(&x[i], &x[i+1], &resultado);
+		// mostra_INT(&resultado, mostra_int);
+
+
+		// printf("\n\nComparacao do %d com o %d: ", i+1, i+2);
+		// comparacao_INT(&x[i], &x[i+1]);
+
+		printf("\n");
 	}
 
 	//desaloca_INT(&x);
