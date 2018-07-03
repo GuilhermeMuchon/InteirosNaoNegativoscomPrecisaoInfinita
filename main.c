@@ -34,16 +34,16 @@ void main(int argc, char *argv[]) {
 		inicializa_INT(&x[i], s);
 	}
 	
-	for(i = 1; i < resp; i++){
-		printf("\n\nSoma do %d com o %d: ", i, i+1);
+	for(i = 0; i < resp-1; i++){
+		printf("\n\nSoma do %d com o %d: ", i+1, i+2);
 		soma_INT(&x[i], &x[i+1], &resultado);
 		mostra_INT(&resultado, mostra_int);
 		
-		printf("\n\nSubtracao do %d com o %d: ", i, i+1);
+		printf("\n\nSubtracao do %d com o %d: ", i+1, i+2);
 		diminui_INT(&x[i], &x[i+1], &resultado);
 		mostra_INT(&resultado, mostra_int);
 		
-		printf("\n\nMultiplicacao do %d com o %d: ", i, i+1);
+		printf("\n\nMultiplicacao do %d com o %d: ", i+1, i+2);
 		multiplica_INT(&x[i], &x[i+1], &resultado);
 		mostra_INT(&resultado, mostra_int);
 	}

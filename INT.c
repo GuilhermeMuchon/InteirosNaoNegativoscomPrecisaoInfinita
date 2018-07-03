@@ -96,6 +96,15 @@ int soma_INT(INT *p, INT *q, INT *resultado){
 	ElementoDuplo *aux1 = p->l.cabeca;
 	ElementoDuplo *aux2 = q->l.cabeca;
 	
+	if(aux1 == NULL && aux2 != NULL){
+		atribui_INT(resultado, *q);
+		return 1;
+	}
+	if(aux2 == NULL && aux1 != NULL){
+		atribui_INT(resultado, *p);
+		return 1;
+	}
+	
 	while(aux1->suc != NULL){
 		aux1 = aux1->suc;
 	}
@@ -128,14 +137,6 @@ int soma_INT(INT *p, INT *q, INT *resultado){
 	
 	if(restaUm>0){
 		insereNoInicio(&(resultado->l),&restaUm);
-	}
-	
-	if(aux1 == NULL){
-		aux1 = aux1->suc;
-	}
-	
-	if(aux2 == NULL){
-		aux2 = aux2->suc;
 	}
 	
 	return 1;
@@ -269,6 +270,30 @@ int multiplica_INT(INT *p, INT *q, INT *resultado){
 	return 1;
 }
 
-/*int compara_INT(INT *p, INT *q){
-	while()
-}*/
+int compara_INT(INT *p, INT *q, void(*compara)(void *)){
+	ElementoDuplo *aux1 = p->l.cabeca;
+	ElementoDuplo *aux2 = q->l.cabeca;
+	
+	while(aux1->suc != NULL){
+		aux1 = aux1->suc;
+		count1++;
+	}
+	
+	while(aux2->suc != NULL){
+		aux2 = aux2->suc;
+		count2++;
+	}
+	
+	if(cont1 > cont2){
+		return 1;
+	}else 
+	if (cont1 < cont 2){
+		return -1;	
+	} else{	
+		while(compara(aux1->info, aux2->info) == 0 || aux1 != NULL || aux2 != NULL){
+			compara(aux1->info, aux2->info);
+			aux1 = aux1->ant;
+			aux2 = aux2->ant;	
+		}
+	}
+}
