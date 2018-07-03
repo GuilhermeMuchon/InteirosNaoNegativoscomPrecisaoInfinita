@@ -3,13 +3,6 @@
 #include <stdio.h>
 #include <string.h> //memcopy
 
-void removeZeros(INT *p){
-	char info = 0;
-	while(leNaPos(&(p->l),&info, 0) == 1 && info == 0){
-		removeDoInicio(&(p->l), &info);
-	}
-}
-
 int valida(char *x) {
 	int i;
     for (i = 0; x[i] != '\0'; i++) {
@@ -20,11 +13,16 @@ int valida(char *x) {
     return 1;
 }
 
-
+void removeZeros(INT *p){
+	char info = 0;
+	while(leNaPos(&(p->l),&info, 0) == 1 && info == 0){
+		removeDoInicio(&(p->l), &info);
+	}
+}
 
 int inicializa_INT(INT *inteiroLongo, char *s) {
     if (valida(s)) {
-        inicializa_lista( &(inteiroLongo -> l), sizeof(char));
+        inicializa_lista(&(inteiroLongo -> l), sizeof(char));
         int i;
         for (i = 0; s[i] != '\0'; i++) {
             char n = converte(s[i]);
@@ -69,8 +67,7 @@ void atribui_INT(INT *inteiroLongo, INT aux) {
 		removeDoFim(&(inteiroLongo -> l), &variavel_qualquer);
 	}
 	while(aux.l.cabeca != NULL){
-		insereNoFim(&(inteiroLongo -> l), (aux.l.cabeca->info));
-//		printf("%d\n", (int *)aux.l.cabeca->info);
+		insereNoFim(&(inteiroLongo -> l), aux.l.cabeca->info);
 		aux.l.cabeca = aux.l.cabeca->suc;
 	}
 }
@@ -103,18 +100,29 @@ INT soma_INT(INT *p, INT *q){
 			aux2 = aux2->ant;
 		}
 
-		soma1+=soma2+restaUm;
+		soma1 += soma2 + restaUm;
 		restaUm = soma1/10;
-		soma1 = soma1% 10;
-		insereNoInicio(&resultado,&soma1 );
+		soma1 = soma1%10;
+		insereNoInicio(&resultado, &soma1);
 	}
 
-	if(restaUm>0){
-		insereNoInicio(&resultado,&restaUm);
+	if(restaUm > 0){
+		insereNoInicio(&resultado, &restaUm);
 	}
 
 	INT retorno;
 	retorno.l = resultado;
 
 	return retorno;
+}
+
+INT multiplica_INT(INT *p, int a){
+	INT multiplicacao = *p;
+	int i;
+
+	for(i = 0; i < a;  i++){
+		atribui_INT(&multiplicacao, soma_INT(p, &multiplicacao));
+	}
+
+	return multiplicacao;
 }

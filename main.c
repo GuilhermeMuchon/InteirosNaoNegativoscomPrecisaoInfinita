@@ -8,8 +8,8 @@ void mostra_int(void *p){
   printf("%d",*(char*)p); // (int*) -> convertendo a direita da express�o para int, nesse caso, a vari�vel p
 }
 
-void main(int argc, char *argv[]) {
-	INT x, novo, resultado;
+int main(int argc, char *argv[]) {
+	INT x, novo, resultadoSoma, resultadoMulti;
 	char s[100], novo_S[100];
 
 	printf("Digite o valor a ser inicializado: ");
@@ -20,12 +20,17 @@ void main(int argc, char *argv[]) {
 
 	printf("\nDigite o valor a ser atribuido: ");
 	scanf("%s", novo_S);
-
 	inicializa_INT(&novo, &(*novo_S));
-	atribui_INT(&x, novo);
-	mostra_INT(&x, mostra_int);
-//	resultado = soma_INT(&x, &novo);
-//	mostra_INT(&resultado, mostra_int);
+
+	printf("\nSoma:\n");
+	resultadoSoma = soma_INT(&x, &novo);
+	mostra_INT(&resultadoSoma, mostra_int);
+
+	printf("\nMulti:\n");
+	resultadoMulti = multiplica_INT(&x, 6);
+	mostra_INT(&resultadoMulti, mostra_int);
 
 	desaloca_INT(&x);
+
+	return 0;
 }
