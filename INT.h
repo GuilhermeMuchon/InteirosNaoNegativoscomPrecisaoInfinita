@@ -13,4 +13,4 @@ void atribui_INT(INT *inteiroLongo, INT aux);
 int soma_INT(INT *p, INT *q, INT *resultado);
 int diminui_INT(INT *p, INT *q, INT *resultado);
 int multiplica_INT(INT *p, INT *q, INT *resultado);
-int divide_INT(INT *p, INT *q, INT *resultado);
+int divisao_INT(INT *p, INT *q, INT *resultado);

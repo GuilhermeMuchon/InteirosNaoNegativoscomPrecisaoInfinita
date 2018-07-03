@@ -8,55 +8,79 @@ void mostra_int(void *p){
   printf("%d",*(char*)p); // (int*) -> convertendo a direita da express�o para int, nesse caso, a vari�vel p
 }
 
-int compara(void *a, void *b){
-    char *x=(char*)a, *y=(char*)b;
-    if(*x > *y){
-        return 1; // A>B
-    }
-    if(*x < *y){
-        return -1; // A<B
-    }
-    return 0; // A==B
+int comparacao_maior(INT *p, INT *q){
+	return compara_INT(p, q);
+}
+
+int comparacao_menor(INT *p, INT *q){
+	return -(compara_INT(p, q));
 }
 
 int main(int argc, char *argv[]) {
 	char s[100];
-	int resp, i;
+	int i=0;
+	LDE listaINT;
 
-	printf("\nDigite quantos Inteiros longos voce deseja inicializar: ");
-	scanf("%d", &resp);
-
-	INT x[resp], resultado;
-
-	for(i = 0; i < resp; i++){
-		printf("\nDigite o valor do %d inteiro longo: ", i+1);
+	inicializa_lista(&listaINT, sizeof(INT));
+	
+	while(s != "-1"){
+		printf("\nDigite o valor do %d inteiro longo (-1 para continuar): ", i+1);
 		scanf("%s", s);
-		inicializa_INT(&x[i], s);
+		INT novoInt;
+		if(inicializa_INT(&novoInt, s) == 1){
+			insereNoFim(&listaINT, &novoInt);	
+		}else{
+			break;
+		}
+		
+		i++;
 	}
-
-	for(i = 0; i < resp-1; i++){
+	
+//	int indiceMenor = maior(listaINT, comparacao_menor);
+//	int indiceMaior = maior(listaINT, comparacao_maior);
+//	
+//	INT maior;
+//	leNaPos(&listaINT, &maior, indiceMaior);
+//	
+//	printf("\n\nMaior numero:");
+//	mostra_INT(&maior, mostra_int);
+	
+//	INT menor;
+//	leNaPos(&listaINT, &menor, indiceMenor);
+//	printf("\n\nMenor numero:");
+//	mostra_INT(&menor, mostra_int);
+	
+	i = 0;
+	ElementoDuplo *aux = listaINT.cabeca;
+	INT resultado;
+	
+	while(aux->suc != NULL){
+		
 		printf("\n\nSoma do %d com o %d: ", i+1, i+2);
-		soma_INT(&x[i], &x[i+1], &resultado);
+		soma_INT((INT*)aux->info, (INT*)aux->suc->info, &resultado);
 		mostra_INT(&resultado, mostra_int);
 
 		printf("\n\nSubtracao do %d com o %d: ", i+1, i+2);
-		diminui_INT(&x[i], &x[i+1], &resultado);
+		diminui_INT(aux->info, aux->suc->info, &resultado);
 		mostra_INT(&resultado, mostra_int);
 
 		printf("\n\nMultiplicacao do %d com o %d: ", i+1, i+2);
-		multiplica_INT(&x[i], &x[i+1], &resultado);
+		multiplica_INT(aux->info, aux->suc->info, &resultado);
 		mostra_INT(&resultado, mostra_int);
 
-		// printf("\n\nDivisao do %d com o %d: ", i+1, i+2);
-		// divide_INT(&x[i], &x[i+1], &resultado);
-		// mostra_INT(&resultado, mostra_int);
+//		 printf("\n\nDivisao do %d com o %d: ", i+1, i+2);
+		 printf("\n\nDivisao do %d com o %d e: %d", i+1, i+2, divisao_INT(aux->info, aux->suc->info, &resultado));
+		 printf("\nResto: ");
+		 mostra_INT(&resultado, mostra_int);
 
-
-		// printf("\n\nComparacao do %d com o %d: ", i+1, i+2);
-		// comparacao_INT(&x[i], &x[i+1]);
+		printf("\n\nComparacao do %d com o %d: ", i+1, i+2);
+		int comparacao = compara_INT(aux->info, aux->suc->info);
+		printf("%d", comparacao);
 
 		printf("\n");
-	}
+		i++;
+		aux = aux->suc;
+}
 
 	//desaloca_INT(&x);
 	return 0;
