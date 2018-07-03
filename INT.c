@@ -1,6 +1,6 @@
 #include "INT.h"
-#include <stdlib.h> 
-#include <stdio.h> 
+#include <stdlib.h>
+#include <stdio.h>
 #include <string.h> //memcopy
 
 void removeZeros(INT *p){
@@ -9,6 +9,18 @@ void removeZeros(INT *p){
 		removeDoInicio(&(p->l), &info);
 	}
 }
+
+int valida(char *x) {
+	int i;
+    for (i = 0; x[i] != '\0'; i++) {
+        if (converte(x[i]) > 9 || converte(x[i]) < 0) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+
 
 int inicializa_INT(INT *inteiroLongo, char *s) {
     if (valida(s)) {
@@ -28,16 +40,6 @@ int inicializa_INT(INT *inteiroLongo, char *s) {
 
 char converte(char x) {
     return x - '0';
-}
-
-int valida(char *x) {
-	int i;
-    for (i = 0; x[i] != '\0'; i++) {
-        if (converte(x[i]) > 9 || converte(x[i]) < 0) {
-            return 0;
-        }
-    }
-    return 1;
 }
 
 void desaloca_INT(INT *inteiroLongo) {
@@ -76,20 +78,20 @@ void atribui_INT(INT *inteiroLongo, INT aux) {
 INT soma_INT(INT *p, INT *q){
 	LDE resultado;
 	inicializa_lista(&resultado, sizeof(char));
-	
+
 	ElementoDuplo *aux1 = p->l.cabeca;
 	ElementoDuplo *aux2 = q->l.cabeca;
-	
+
 	while(aux1->suc != NULL){
 		aux1 = aux1->suc;
 	}
-	
+
 	while(aux2->suc != NULL){
 		aux2 = aux2->suc;
 	}
-	
+
 	char restaUm = 0;
-	
+
 	while(aux1 != NULL || aux2 != NULL){
 		char soma1=0, soma2=0;
 		if(aux1 != NULL){
@@ -100,19 +102,19 @@ INT soma_INT(INT *p, INT *q){
 			soma2 = *((char*)aux2->info);
 			aux2 = aux2->ant;
 		}
-		
+
 		soma1+=soma2+restaUm;
 		restaUm = soma1/10;
 		soma1 = soma1% 10;
 		insereNoInicio(&resultado,&soma1 );
 	}
-	
+
 	if(restaUm>0){
 		insereNoInicio(&resultado,&restaUm);
 	}
-	
+
 	INT retorno;
 	retorno.l = resultado;
-	
+
 	return retorno;
 }
