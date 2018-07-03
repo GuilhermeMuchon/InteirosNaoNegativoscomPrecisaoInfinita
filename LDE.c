@@ -1,6 +1,6 @@
 #include "LDE.h"
-#include <stdlib.h> 
-#include <stdio.h> 
+#include <stdlib.h>
+#include <stdio.h>
 #include <string.h> //memcopy
 
 void inicializa_lista(LDE *p, int t) {
@@ -126,7 +126,7 @@ void desaloca_lista(LDE *l) {
 int insereNoInicio(LDE *l, void *info) {
     ElementoDuplo *novo = aloca_ele(info, l -> tamInfo);
     if (novo == NULL) {
-        return 0; //Erro na alocação !
+        return 0; //Erro na alocaï¿½ï¿½o !
     }
     novo -> suc = l -> cabeca;
     l -> cabeca = novo;
@@ -176,7 +176,7 @@ int insereNoFim(LDE *l, void *info) {
     }
     ElementoDuplo *novo = aloca_ele(info, l -> tamInfo);
     if (novo == NULL) {
-        return 0; //erro na alocação
+        return 0; //erro na alocaï¿½ï¿½o
     }
     novo -> suc = NULL;
     p -> suc = novo;
@@ -205,7 +205,7 @@ int insereNaPos(LDE *l, void *info, int pos) {
     }
     ElementoDuplo *novo = aloca_ele(info, l -> tamInfo);
     if (novo == NULL) {
-        return 0; // Erro na alocação
+        return 0; // Erro na alocaï¿½ï¿½o
     }
     novo -> suc = p -> suc;
     p -> suc = novo;
