@@ -152,6 +152,7 @@ char emprestaUm(ElementoDuplo *e){
 		setValor(e, valor);
 		return 10;
 	}
+    return 1;
 }
 
 int diminui_INT(INT *p, INT *q, INT *resultado){
