@@ -154,7 +154,15 @@ char emprestaUm(ElementoDuplo *e){
 	}
     return 1;
 }
-
+int divisao_INT(INT *p, INT *q, INT *resultado){
+	
+	int cont = 0;
+	while(diminui_INT(p, q, resultado) == 1){
+		atribui_INT(p,*resultado);
+		cont ++;
+	}
+	return cont;
+}
 int diminui_INT(INT *p, INT *q, INT *resultado){
 
 	inicializa_lista(&(resultado->l),sizeof(char));

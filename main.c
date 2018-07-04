@@ -47,9 +47,9 @@ int main(int argc, char *argv[]) {
 		multiplica_INT(&x[i], &x[i+1], &resultado);
 		mostra_INT(&resultado, mostra_int);
 
-		// printf("\n\nDivisao do %d com o %d: ", i+1, i+2);
-		// divide_INT(&x[i], &x[i+1], &resultado);
-		// mostra_INT(&resultado, mostra_int);
+		printf("\n\nDivisao do %d com o %d: ", i+1, i+2);
+		divisao_INT(&x[i], &x[i+1], &resultado);
+		mostra_INT(&resultado, mostra_int);
 
 
 		// printf("\n\nComparacao do %d com o %d: ", i+1, i+2);
